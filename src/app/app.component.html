@@ -1,3 +1,28 @@
-<h1>
-  {{title}}
-</h1>
+
+<form novalidate  (ngSubmit)="onSubmit(user)" [formGroup]="user">
+  <label>
+    <span>Type your full Name</span>
+<input type="text" placeholder="Type your Name" formControlName="name"/>
+  </label>
+<div class="error" *ngIf="user.get('name').hasError('required') && user.get('name').touched">
+  Type your name
+</div>
+<div formGroupName="account">
+<label>
+  <span>Type your email</span>
+<input type="email" placeholder="Type your email" formControlName="email"/>
+</label>
+<div class="error" *ngIf="user.get('account').get('email').hasError('required') && user.get('account').get('email').touched">
+   Type your email
+</div>
+<span>Confirm your email</span>
+<label>
+<input type="email" placeholder="Confirm your email" formControlName="confirm"/>
+</label>
+<div class="error" *ngIf="user.get('account').get('confirm').hasError('required') && user.get('account').get('confirm').touched">
+   Email confirmation is required
+</div>
+</div>
+
+<button type="submit" [disabled]="user.invalid"> Submit </button>
+</form>
